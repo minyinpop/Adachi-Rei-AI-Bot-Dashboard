@@ -1,4 +1,4 @@
 export enum BotModel {
-  openai = "GPT 5.4",
-  ollama = "Gemma 3:27B"
+  OpenAI = "GPT 5.4",
+  Ollama = "Gemma 3:27B"
 }

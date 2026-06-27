@@ -6,46 +6,46 @@ import { reactive } from "vue"
 export function useBot() {
   const ai_bot = reactive<BotInfo>({
     name: "足立レイ Discord Bot",
-    status: BotStatus.closed,
-    model: BotModel.ollama
+    status: BotStatus.Closed,
+    model: BotModel.Ollama
   })
 
   async function change_ai_model()
   {
     switch (ai_bot.model)
     {
-      case BotModel.ollama:
+      case BotModel.Ollama:
       {
-        ai_bot.status = BotStatus.closed
-        ai_bot.model = BotModel.openai
+        ai_bot.status = BotStatus.Closed
+        ai_bot.model = BotModel.OpenAI
 
         await delay(300)
 
-        ai_bot.status = BotStatus.loading
+        ai_bot.status = BotStatus.Loading
 
         await delay(1000)
 
-        ai_bot.status = BotStatus.ready
+        ai_bot.status = BotStatus.Ready
         break
       }
-      case BotModel.openai:
+      case BotModel.OpenAI:
       {
-        ai_bot.status = BotStatus.closed
-        ai_bot.model = BotModel.ollama
+        ai_bot.status = BotStatus.Closed
+        ai_bot.model = BotModel.Ollama
 
         await delay(300)
 
-        ai_bot.status = BotStatus.loading
+        ai_bot.status = BotStatus.Loading
 
         await delay(3000)
 
-        ai_bot.status = BotStatus.ready
+        ai_bot.status = BotStatus.Ready
         break
       }
     }
   }
 
-  function delay(ms: number) {
+  function delay(ms: number) : Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
