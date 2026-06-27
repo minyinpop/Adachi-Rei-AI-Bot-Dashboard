@@ -1,3 +1,4 @@
+import type { BotModel } from "@/types/BotModel.ts"
 import type { BotInfo } from "@/types/BotInfo.ts"
 import { reactive } from "vue"
 
@@ -8,38 +9,31 @@ export function useBot() {
     model: "ollama"
   })
 
-  async function change_ai_model()
+  async function change_ai_model(model: BotModel)
   {
-    switch (ai_bot.model)
-    {
-      case "openai":
-      {
-        ai_bot.status = "closed"
-        ai_bot.model = "ollama"
+    if (model == "openai") {
+      ai_bot.status = "closed"
+      ai_bot.model = "openai"
 
-        await delay(300)
+      await delay(300)
 
-        ai_bot.status = "loading"
+      ai_bot.status = "loading"
 
-        await delay(3000)
+      await delay(3000)
 
-        ai_bot.status = "ready"
-        break
-      }
-      case "ollama":
-      {
-        ai_bot.status = "closed"
-        ai_bot.model = "openai"
+      ai_bot.status = "ready"
+    }
+    else if (model == "ollama") {
+      ai_bot.status = "closed"
+      ai_bot.model = "ollama"
 
-        await delay(300)
+      await delay(300)
 
-        ai_bot.status = "loading"
+      ai_bot.status = "loading"
 
-        await delay(1000)
+      await delay(1000)
 
-        ai_bot.status = "ready"
-        break
-      }
+      ai_bot.status = "ready"
     }
   }
 
