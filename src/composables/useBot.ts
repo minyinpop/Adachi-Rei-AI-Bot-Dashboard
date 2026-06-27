@@ -1,7 +1,8 @@
-import { reactive } from "vue";
+import type { BotInfo } from "@/types/BotInfo.ts"
+import { reactive } from "vue"
 
 export function useBot() {
-  let is_openai: boolean = false;
+  let is_openai: boolean = false
 
   const bot_closed: string = "🔴 關閉中"
   const bot_loading: string = "🟡 啟動中"
@@ -10,7 +11,7 @@ export function useBot() {
   const openai_bot = "GPT 5.4"
   const ollama_bot = "Gemma 3:27B"
 
-  const ai_bot = reactive({
+  const ai_bot = reactive<BotInfo>({
     name: "足立レイ Discord Bot",
     status: bot_closed,
     model: ollama_bot
