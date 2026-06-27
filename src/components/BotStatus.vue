@@ -1,13 +1,50 @@
 <script setup lang="ts">
-  interface ai_bot_info {
-    name: string
-    status: string
-    model: string
-  }
+  import type { BotInfo } from "@/types/BotInfo.ts";
+  import { computed } from "vue";
 
-  const props = defineProps<{ ai_bot: ai_bot_info }>()
+  const props = defineProps<{ ai_bot: BotInfo }>()
 
   const emit = defineEmits<{ change_ai_bot: [] }>()
+
+  const statusText = computed(() => {
+    switch (props.ai_bot.status)
+    {
+      case "ready":
+      {
+        return "🟢 準備就緒"
+      }
+      case "loading":
+      {
+        return "🟡 啟動中"
+      }
+      case "closed":
+      {
+        return "🔴 已關閉"
+      }
+      default:
+      {
+        return "⚪ 已離線"
+      }
+    }
+  })
+
+  const modelText = computed(() => {
+    switch (props.ai_bot.model)
+    {
+      case "openai":
+      {
+        return "GPT 5.4"
+      }
+      case "ollama":
+      {
+        return "Gemma 3:27B"
+      }
+      default:
+      {
+        return "你怎麼選到這個模型的？"
+      }
+    }
+  })
 
   function on_click_change_ai_bot() {
     emit("change_ai_bot")
@@ -19,9 +56,9 @@
 
     <h2>{{ props.ai_bot.name }}</h2>
 
-    <p>Status：{{ props.ai_bot.status }}</p>
+    <p>Status：{{ statusText }}</p>
 
-    <p>Model：{{ props.ai_bot.model }}</p>
+    <p>Model：{{ modelText }}</p>
 
     <p>Token：1024 / 65535</p>
 

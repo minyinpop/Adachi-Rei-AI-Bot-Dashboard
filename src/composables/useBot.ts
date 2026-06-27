@@ -1,46 +1,49 @@
-import { reactive } from "vue";
+import type { BotInfo } from "@/types/BotInfo.ts"
+import { reactive } from "vue"
 
 export function useBot() {
-  let is_openai: boolean = false;
-
-  const bot_closed: string = "🔴 關閉中"
-  const bot_loading: string = "🟡 啟動中"
-  const bot_ready: string = "🟢 運作中"
-
-  const openai_bot = "GPT 5.4"
-  const ollama_bot = "Gemma 3:27B"
-
-  const ai_bot = reactive({
+  const ai_bot = reactive<BotInfo>({
     name: "足立レイ Discord Bot",
-    status: bot_closed,
-    model: ollama_bot
+    status: "closed",
+    model: "ollama"
   })
 
   async function change_ai_model()
   {
-    is_openai = !is_openai;
+    switch (ai_bot.model)
+    {
+      case "openai":
+      {
+        ai_bot.status = "closed"
+        ai_bot.model = "ollama"
 
-    ai_bot.status = bot_closed;
+        await delay(300)
 
-    await delay(500)
+        ai_bot.status = "loading"
 
-    ai_bot.status = bot_loading;
+        await delay(3000)
 
-    if (is_openai) {
-      await delay(1000)
+        ai_bot.status = "ready"
+        break
+      }
+      case "ollama":
+      {
+        ai_bot.status = "closed"
+        ai_bot.model = "openai"
 
-      ai_bot.status = bot_ready
-      ai_bot.model = openai_bot
-    }
-    else {
-      await delay(3000)
+        await delay(300)
 
-      ai_bot.status = bot_ready
-      ai_bot.model = ollama_bot
+        ai_bot.status = "loading"
+
+        await delay(1000)
+
+        ai_bot.status = "ready"
+        break
+      }
     }
   }
 
-  function delay(ms: number) {
+  function delay(ms: number) : Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
