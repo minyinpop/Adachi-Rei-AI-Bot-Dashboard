@@ -1,4 +1,6 @@
+import type { BotModel } from "@/types/BotModel.ts"
 import type { BotInfo } from "@/types/BotInfo.ts"
+import { delay } from "@/utils/delay.ts"
 import { reactive } from "vue"
 
 export function useBot() {
@@ -8,43 +10,25 @@ export function useBot() {
     model: "ollama"
   })
 
-  async function change_ai_model()
+  async function change_ai_model(model: BotModel)
   {
-    switch (ai_bot.model)
+    if (model === ai_bot.model)
     {
-      case "openai":
-      {
-        ai_bot.status = "closed"
-        ai_bot.model = "ollama"
-
-        await delay(300)
-
-        ai_bot.status = "loading"
-
-        await delay(3000)
-
-        ai_bot.status = "ready"
-        break
-      }
-      case "ollama":
-      {
-        ai_bot.status = "closed"
-        ai_bot.model = "openai"
-
-        await delay(300)
-
-        ai_bot.status = "loading"
-
-        await delay(1000)
-
-        ai_bot.status = "ready"
-        break
-      }
+      return
     }
-  }
 
-  function delay(ms: number) : Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    const is_openai = model === "openai"
+
+    ai_bot.status = "closed"
+    ai_bot.model = model
+
+    await delay(500)
+
+    ai_bot.status = "loading"
+
+    await delay(is_openai ? 1500 : 250)
+
+    ai_bot.status = "ready"
   }
 
   return {
