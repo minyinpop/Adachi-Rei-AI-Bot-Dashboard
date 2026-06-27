@@ -1,43 +1,47 @@
 import type { BotInfo } from "@/types/BotInfo.ts"
+import { BotStatus } from "@/types/BotStatus.ts"
+import { BotModel } from "@/types/BotModel.ts"
 import { reactive } from "vue"
 
 export function useBot() {
-  let is_openai: boolean = false
-
-  const bot_closed: string = "🔴 關閉中"
-  const bot_loading: string = "🟡 啟動中"
-  const bot_ready: string = "🟢 運作中"
-
-  const openai_bot = "GPT 5.4"
-  const ollama_bot = "Gemma 3:27B"
-
   const ai_bot = reactive<BotInfo>({
     name: "足立レイ Discord Bot",
-    status: bot_closed,
-    model: ollama_bot
+    status: BotStatus.closed,
+    model: BotModel.ollama
   })
 
   async function change_ai_model()
   {
-    is_openai = !is_openai;
+    switch (ai_bot.model)
+    {
+      case BotModel.ollama:
+      {
+        ai_bot.status = BotStatus.closed
+        ai_bot.model = BotModel.openai
 
-    ai_bot.status = bot_closed;
+        await delay(300)
 
-    await delay(500)
+        ai_bot.status = BotStatus.loading
 
-    ai_bot.status = bot_loading;
+        await delay(1000)
 
-    if (is_openai) {
-      await delay(1000)
+        ai_bot.status = BotStatus.ready
+        break
+      }
+      case BotModel.openai:
+      {
+        ai_bot.status = BotStatus.closed
+        ai_bot.model = BotModel.ollama
 
-      ai_bot.status = bot_ready
-      ai_bot.model = openai_bot
-    }
-    else {
-      await delay(3000)
+        await delay(300)
 
-      ai_bot.status = bot_ready
-      ai_bot.model = ollama_bot
+        ai_bot.status = BotStatus.loading
+
+        await delay(3000)
+
+        ai_bot.status = BotStatus.ready
+        break
+      }
     }
   }
 
