@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import ModelSelector from "@/components/ModelSelector.vue";
+  import { useBot } from "@/composables/useBot/useBot.ts"
   import BotStatus from "@/components/BotStatus.vue"
-  import { useBot } from "@/composables/useBot.ts"
 
   const bot = useBot()
 </script>
