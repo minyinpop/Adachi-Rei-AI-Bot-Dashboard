@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import BotStatus from "@/components/BotStatus.vue";
+  import BotStatus from "@/components/BotStatus.vue"
   import { useBot } from "@/composables/useBot.ts"
 
   const bot = useBot()
