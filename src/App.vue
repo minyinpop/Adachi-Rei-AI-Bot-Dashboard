@@ -8,11 +8,11 @@
 
 <template>
   <BotStatus
-    :ai_bot="bot.ai_bot"
+    v-bind:ai_bot="bot.ai_bot"
   />
 
   <ModelSelector
-    @change_model="bot.change_ai_model"
+    v-on:change_model="bot.change_ai_model"
   />
 </template>
 
