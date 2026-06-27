@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import ModelSelector from "@/components/ModelSelector.vue";
   import BotStatus from "@/components/BotStatus.vue"
   import { useBot } from "@/composables/useBot.ts"
 
@@ -8,7 +9,10 @@
 <template>
   <BotStatus
     :ai_bot="bot.ai_bot"
-    @change_ai_bot="bot.change_ai_model"
+  />
+
+  <ModelSelector
+    @change_model="bot.change_ai_model"
   />
 </template>
 
