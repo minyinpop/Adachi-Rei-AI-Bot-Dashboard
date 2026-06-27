@@ -1,5 +1,5 @@
 export enum BotStatus {
-  ready = 1,
-  loading = 2,
-  closed = 3
+  closed = "🔴 關閉中",
+  loading = "🟡 啟動中",
+  ready = "🟢 運作中"
 }
