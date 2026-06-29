@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import ModelSelector from "@/components/ModelSelector.vue"
-  import { useBot } from "@/composables/useBot/useBot.ts"
   import BotStatus from "@/components/BotStatus.vue"
   import LogViewer from "@/components/LogViewer.vue"
+  import { useBotStore } from "@/stores/bot.ts"
 
-  const bot = useBot()
+  const bot = useBotStore()
 </script>
 
 <template>
