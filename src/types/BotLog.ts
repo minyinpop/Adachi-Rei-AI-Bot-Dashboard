@@ -1,4 +1,4 @@
 export interface BotLog {
-  timestamp: string
+  timestamp: Date
   message: string
 }
