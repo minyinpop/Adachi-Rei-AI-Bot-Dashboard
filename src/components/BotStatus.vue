@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import type { BotInfo } from "@/types/BotInfo.ts";
-  import { computed } from "vue";
+  import type { BotInfo } from "@/types/BotInfo.ts"
+  import { computed } from "vue"
 
   const props = defineProps<{ ai_bot: BotInfo }>()
 

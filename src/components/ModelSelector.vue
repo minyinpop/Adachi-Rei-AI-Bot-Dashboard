@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import type { ModelChangeButton } from "@/types/ModelChangeButton.ts";
-  import type { BotModel } from "@/types/BotModel.ts";
+  import type { ModelChangeButton } from "@/types/ModelChangeButton.ts"
+  import type { BotModel } from "@/types/BotModel.ts"
 
   const emit = defineEmits<{ change_model: [model: BotModel] }>()
 
