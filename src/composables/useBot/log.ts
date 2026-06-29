@@ -1,7 +1,7 @@
 import type { BotLog } from "@/types/BotLog.ts"
 import { type Reactive, reactive } from "vue"
 
-const logs: Reactive<BotLog[]> = reactive<BotLog[]>([])
+export const logs: Reactive<BotLog[]> = reactive<BotLog[]>([])
 
 function add_log(message: string) {
   const new_log: BotLog = {
