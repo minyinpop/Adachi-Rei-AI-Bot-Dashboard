@@ -2,10 +2,14 @@
   import type { ModelChangeButton } from "@/types/ModelChangeButton.ts"
   import type { BotModel } from "@/types/BotModel.ts"
 
-  const emit = defineEmits<{ change_model: [model: BotModel] }>()
+  const emit = defineEmits<{ change_model: [model: BotModel], load_from_backend: [] }>()
 
   function on_click_change_model_button(model: BotModel) {
     emit("change_model", model)
+  }
+
+  function on_click_load_from_backend_button() {
+    emit("load_from_backend")
   }
 
   const models: ModelChangeButton[] = [
@@ -27,6 +31,9 @@
             v-bind:key="model.button_model"
             v-on:click="on_click_change_model_button(model.button_model)">
       {{ model.button_title }}
+    </button>
+    <button v-on:click="on_click_load_from_backend_button">
+      從後端讀取 AI Bot 資料
     </button>
   </div>
 </template>

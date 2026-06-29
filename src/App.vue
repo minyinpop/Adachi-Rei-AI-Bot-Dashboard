@@ -14,6 +14,7 @@
 
   <ModelSelector
     v-on:change_model="bot.change_ai_model"
+    v-on:load_from_backend="bot.load_bot_information"
   />
 
   <LogViewer/>
