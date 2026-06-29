@@ -41,8 +41,18 @@ export const useBotStore = defineStore("bot", () =>
     ai_bot.status = "ready"
   }
 
+  async function load_bot_information() {
+    const response = await fetch("http://127.0.0.1:8000/info")
+    const bot_information = await response.json()
+
+    ai_bot.name = bot_information.name
+    ai_bot.status = bot_information.status
+    ai_bot.model = bot_information.model
+  }
+
   return {
     ai_bot,
-    change_ai_model
+    change_ai_model,
+    load_bot_information
   }
 })
