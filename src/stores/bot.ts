@@ -3,21 +3,23 @@ import type { BotModel } from "@/types/BotModel.ts"
 import type { BotInfo } from "@/types/BotInfo.ts"
 import { delay } from "@/utils/delay.ts"
 import { reactive, watch } from "vue"
+import { defineStore } from "pinia"
 
-const ai_bot = reactive<BotInfo>({
-  name: "足立レイ Discord Bot",
-  status: "closed",
-  model: "ollama"
-})
+export const useBotStore = defineStore("bot", () =>
+{
+  const ai_bot = reactive<BotInfo>({
+    name: "足立レイ Discord Bot",
+    status: "closed",
+    model: "ollama"
+  })
 
-watch(
-  () => ai_bot.status,
-  (new_status, old_status) => {
-    add_log(`${old_status} -> ${new_status}`)
-  }
-)
+  watch(
+    () => ai_bot.status,
+    (new_status, old_status) => {
+      add_log(`${old_status} -> ${new_status}`)
+    }
+  )
 
-export function useBot() {
   async function change_ai_model(model: BotModel)
   {
     if (model === ai_bot.model)
@@ -43,4 +45,4 @@ export function useBot() {
     ai_bot,
     change_ai_model
   }
-}
+})
