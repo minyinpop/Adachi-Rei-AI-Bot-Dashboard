@@ -1,3 +1,4 @@
+import { add_log } from "@/composables/useBot/log.ts"
 import type { BotModel } from "@/types/BotModel.ts"
 import type { BotInfo } from "@/types/BotInfo.ts"
 import { delay } from "@/utils/delay.ts"
@@ -19,14 +20,20 @@ export function useBot() {
 
     const is_openai = model === "openai"
 
+    add_log(`已關閉 ${model}`)
+
     ai_bot.status = "closed"
     ai_bot.model = model
 
     await delay(500)
 
+    add_log(`載入 ${model} 中`)
+
     ai_bot.status = "loading"
 
     await delay(is_openai ? 1500 : 250)
+
+    add_log(`${model} 載入完成`)
 
     ai_bot.status = "ready"
   }
