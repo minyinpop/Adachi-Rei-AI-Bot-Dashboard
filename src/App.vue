@@ -2,7 +2,9 @@
   import ModelSelector from "@/components/ModelSelector.vue"
   import BotStatus from "@/components/BotStatus.vue"
   import LogViewer from "@/components/LogViewer.vue"
+  import ChatRoom from "@/components/ChatRoom.vue"
   import { useBotStore } from "@/stores/bot.ts"
+
 
   const bot = useBotStore()
 </script>
@@ -18,6 +20,8 @@
   />
 
   <LogViewer/>
+
+  <ChatRoom/>
 </template>
 
 <style scoped>
