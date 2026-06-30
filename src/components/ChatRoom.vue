@@ -3,9 +3,20 @@
 
   const message = ref<string>()
 
-  function show_text() {
-    console.log(message.value)
-    message.value = ""
+  async function show_text() {
+    const response = await fetch("http://127.0.0.1:8000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: message.value
+      })
+    })
+
+    const data = await response.json()
+
+    message.value = data.message
   }
 </script>
 
